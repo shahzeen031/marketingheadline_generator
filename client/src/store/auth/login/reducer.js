@@ -22,6 +22,7 @@ const login = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       state = {
         ...state,
+        error: "",
         loading: false,
       }
       break
