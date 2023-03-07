@@ -8,12 +8,12 @@ const AdminBro = require('admin-bro');
 const AdminBroExpressjs = require('admin-bro-expressjs');
 const path = require('path');
 const expressValidator = require('express-validator');
-const chatgptmodel=require('./chatgpt')
+const fineTuneModel=require('./chatgpt')
 //app.set('view engine', ejs);
 
 //connect Database
 connectDB();
-chatgptmodel()
+fineTuneModel()
 //Middleware
 
 
