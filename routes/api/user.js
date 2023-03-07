@@ -12,17 +12,11 @@ const User = require('../../models/Users');
 //@route Post api/user
 //desc post route
 //@access Public
-router.post(
-  '/',
+router.post('/',
   [
-    check('name', 'Name is required')
-      .not()
-      .isEmpty(),
+    check('username', 'Username is required').not().isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
-    check(
-      'password',
-      'Please enter a password with 6 or more charcters'
-    ).isLength({ min: 6 })
+    check('password', 'Please enter a password with 6 or more charcters').isLength({ min: 6 })
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -30,21 +24,20 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     try {
       let user = await User.findOne({ email });
 
       if (user) {
-        return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+        return res.status(400).json({ errors: [{ message: 'User already exists' }] });
       }
 
-      //see if User exists
-      
+      // see if User exists
+
       user = new User({
-        name,
+        username,
         email,
-        avatar,
         password
       });
 
@@ -52,26 +45,9 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
-
-      //Encrypt password
-      //Return jsonwebtoken
-      const payload = {
-        user: {
-          id: user.id
-        }
-      };
-      jwt.sign(
-        payload,
-        config.get('jwtSecret'),
-        { expiresIn: 360000 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      res.json({ user: { username, email } });
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server err');
+      res.status(500).json({ errors: [{ message: err.message }] });
     }
   }
 );

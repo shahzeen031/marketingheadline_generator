@@ -7,10 +7,30 @@ import {
   SOCIAL_LOGIN,
 } from "./actionTypes"
 
-export const loginUser = (user, history) => {
-  return {
-    type: LOGIN_USER,
-    payload: { user, history },
+import axios from "axios";
+
+export const loginUser = async (user, history) => {
+  try {
+    const res = await axios.post('http://localhost:5000/api/auth', user);
+
+    if (res.data && res.data.token) {
+      localStorage.setItem("token", res.data.token);
+      return {
+        type: LOGIN_SUCCESS,
+        payload: {},
+      };
+    }
+
+    return {
+      type: API_ERROR,
+      payload: res.data.errors[0].message,
+    };
+  }
+  catch (e) {
+    return {
+      type: API_ERROR,
+      payload: e.response.data.errors[0].message,
+    };
   }
 }
 
@@ -22,9 +42,12 @@ export const loginSuccess = user => {
 }
 
 export const logoutUser = history => {
+  if (localStorage.getItem('token')) {
+    localStorage.removeItem('token');
+  }
   return {
-    type: LOGOUT_USER,
-    payload: { history },
+    type: LOGOUT_USER_SUCCESS,
+    payload: {},
   }
 }
 

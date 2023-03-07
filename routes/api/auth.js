@@ -28,15 +28,14 @@ router.get('/', auth, async (req, res) => {
 //desc Authentication of user & get token
 //@access Public
 
-router.post(
-  '/',
+router.post('/',
   [
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'password is required').exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
-   
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
@@ -47,36 +46,24 @@ router.post(
       let user = await User.findOne({ email });
 
       if (!user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+        return res.status(400).json({ errors: [{ message: 'User not found' }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+        return res.status(400).json({ errors: [{ message: 'Invalid credentials' }] });
       }
 
       const payload = {
-        user: {
-          id: user.id,
-        },
+        userId: user.id,
       };
-      jwt.sign(
-        payload,
-        config.get('jwtSecret'),
-        { expiresIn: '1h' },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
+      jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '1h' }, (err, token) => {
+        if (err) res.status(500).json({ errors: [{ message: err.message }] });
+        res.json({ token });
+      });
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server err');
+      res.status(500).json({ errors: [{ message: err.message }] });
     }
   }
 );
