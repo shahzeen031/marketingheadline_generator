@@ -46,8 +46,9 @@ const Login = props => {
       email: Yup.string().required("Please Enter Your Email"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: (values) => {
-      dispatch(loginUser(values, props.history));
+    onSubmit: async (values) => {
+      dispatch(await loginUser(values, props.history));
+      if (!error) window.location = '/dashboard';
     }
   });
 

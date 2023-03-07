@@ -38,8 +38,8 @@ const Register = props => {
       username: Yup.string().required("Please Enter Your Username"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: (values) => {
-      dispatch(registerUser(values));
+    onSubmit: async (values) => {
+      dispatch(await registerUser(values));
     }
   });
 
@@ -48,7 +48,6 @@ const Register = props => {
     registrationError: state.Account.registrationError,
     loading: state.Account.loading,
   }));
-  console.log("user", user);
 
   useEffect(() => {
     dispatch(apiError(""));
@@ -80,7 +79,7 @@ const Register = props => {
                   </Row>
                 </div>
                 <CardBody className="pt-0">
-             
+
                   <div className="p-3">
                     <Form
                       className="form-horizontal"
@@ -156,15 +155,8 @@ const Register = props => {
                       </div>
 
                       <div className="mt-4">
-                        <button
-                          className="btn btn-primary btn-block "
-                          type="submit"
-                        >
-                          Register
-                        </button>
+                        <button className="btn btn-primary btn-block" type="submit">Register</button>
                       </div>
-
-                   
                     </Form>
                   </div>
                 </CardBody>
@@ -177,7 +169,7 @@ const Register = props => {
                     Login
                   </Link>{" "}
                 </p>
-              
+
               </div>
             </Col>
           </Row>
