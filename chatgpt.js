@@ -18,6 +18,7 @@ async function runCompletion (promt) {
         stop: ["END"],
     });
     
+    
    return completion.data.choices[0].text;
 }
 

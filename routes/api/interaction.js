@@ -44,6 +44,7 @@ router.post('/postInteraction', async (req, res) => {
     }
     // get response from fine tuned model
     let query = req.body.query.concat(":###");
+    console.log(query)
     let response = await runCompletion(query)
     // Add the new interaction to the array
 
@@ -60,6 +61,7 @@ router.post('/postInteraction', async (req, res) => {
     res.json(interaction.interactions);
   } catch (err) {
     // Handle any errors that occur during the request
+   
     res.status(500).json({ message: err.message });
   }
 });
