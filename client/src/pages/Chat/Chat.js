@@ -137,6 +137,8 @@ const[showresponse,setshowresponse]=useState(false)
       text: feedback,
       I_id: query_ID
     };
+    setfeedback_dislike(false)
+    setfeedback_like(false)
     dispatch(onAddfeedback(message));
 
   };
