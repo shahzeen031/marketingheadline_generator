@@ -5,6 +5,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+// fine tuned chatgpt model 
 async function runCompletion (promt) {
     const completion = await openai.createCompletion({
         model: "davinci:ft-personal:marketing-headlines-model-2023-03-07-11-32-07",

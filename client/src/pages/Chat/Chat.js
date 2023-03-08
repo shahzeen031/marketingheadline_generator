@@ -57,7 +57,7 @@ const Chat = props => {
   const [feedback_like, setfeedback_like] = useState(false);
   const [feedback, setfeedback] = useState("");;
   const [Chat_Box_query, setChat_Box_query] = useState("");
-
+const[showresponse,setshowresponse]=useState(false)
   const [query, setquery] = useState("");
   const [query_response, setqueryresponse] = useState(false);
   const [query_ID, setqueryID] = useState("");
@@ -102,6 +102,7 @@ const Chat = props => {
     setCurrentresponse(response);
     setqueryresponse(true)
     setqueryID(_id)
+    setshowresponse(false)
 
 
   };
@@ -112,20 +113,26 @@ const Chat = props => {
   const addMessage = async () => {
 
     const message = {
-
+      userId: userID, 
       query: query,
 
     };
 
     setChat_Box_query(query)
-
+    setshowresponse(true)
+    setquery("")
     dispatch(onAddMessage(message));
+ 
+      
+
+
 
 
   };
 
   const addfeedback = async (value) => {
     const message = {
+      userId: userID,
       value: value,
       text: feedback,
       I_id: query_ID
@@ -155,7 +162,7 @@ const Chat = props => {
                   <div>
                     <div className="chat-leftsidebar-nav">
                       <div>
-                        <h5 className="font-size-14 mb-4">{userID}Recent</h5>
+                        <h5 className="font-size-14 mb-4">Recent</h5>
                         <ul className="list-unstyled chat-list" id="recent-list">
                           <PerfectScrollbar style={{ height: "410px" }}>
 
@@ -313,7 +320,8 @@ const Chat = props => {
                                 <div className="conversation-name">
                                   Response
                                 </div>
-                                <p>{Currentresponse}</p>
+                                {showresponse?( <p>{response}</p>):( <p>{Currentresponse}</p>)}
+             
 
                               </div>
                             </div>

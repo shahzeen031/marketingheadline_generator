@@ -24,8 +24,8 @@ const Section = () => {
           <Row className="align-items-center">
             <Col lg={5}>
               <div className="text-white-50">
-                <h1 className="text-white fw-semibold hero-title">Introducing ChatGPT which interacts in a conversational way.</h1>
-                <p className="font-size-14">We’ve trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</p>
+                <h1 className="text-white fw-semibold hero-title">Introducing  Marketing Headline Generator</h1>
+                <p className="font-size-14">We’ve finetune a ChatGPT model with marketing headlines data, which helps your Business to Get Noticed!. </p>
 
                 <div className="d-flex flex-wrap gap-2 mt-4">
                   <Link to="/register" className="btn btn-success">Sign up</Link>

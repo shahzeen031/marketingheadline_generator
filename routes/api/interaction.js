@@ -29,16 +29,16 @@ router.post('/getinteraction', auth, async (req, res) => {
 });
 
 // Define a route for users to add a new interaction
-router.post('/postInteraction/:userId', async (req, res) => {
+router.post('/postInteraction', async (req, res) => {
   try {
     // Find the interaction for the specified user
-    let interaction = await Interaction.findOne({ userId: req.params.userId });
+    let interaction = await Interaction.findOne({ userId: req.body.userId });
 
 
     // If no interaction exists, create a new one
     if (!interaction) {
       interaction = new Interaction({
-        userId: req.params.userId,
+        userId: req.body.userId,
         interactions: [],
       });
     }
@@ -66,7 +66,7 @@ router.post('/postInteraction/:userId', async (req, res) => {
 
 
 // post feedback on the fine tune model response 
-router.post('/feedback/:userId/:interid', async (req, res) => {
+router.post('/feedback', async (req, res) => {
   try {
     // Find the interaction for the specified user
     // let interaction = await Interaction.findOne({ userId: req.params.userId });
@@ -75,7 +75,7 @@ router.post('/feedback/:userId/:interid', async (req, res) => {
 
     const feedback = { value: 'good', text: 'Great!' };
     const result = await Interaction.updateOne(
-      { userId: req.params.userId, 'interactions._id': req.params.interid },
+      { userId: req.body.userId, 'interactions._id': req.body.I_id },
       { $push: { 'interactions.$.feedback': feedback } }
     ).exec();
 

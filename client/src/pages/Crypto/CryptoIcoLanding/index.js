@@ -7,8 +7,7 @@ import Section from "./HeroSection/Section"
 
 const CryptoIcoLanding = () => {
   
-  //meta title
-  document.title="ICO Landing | Skote - React Admin & Dashboard Template";
+  
 
   const [imglight, setimglight] = useState(true);
   const [navClass, setnavClass] = useState("");
@@ -32,7 +31,7 @@ const CryptoIcoLanding = () => {
   return (
     <React.Fragment>
       {/* import navbar */}
-      <Navbar navClass={navClass} imglight={imglight} />
+     
 
       {/* Hero section */}
       <Section />

@@ -48,8 +48,8 @@ export const GET_CHATS = "/api/interactions/getinteraction";
 export const GET_GROUPS = "/groups";
 export const GET_CONTACTS = "/contacts";
 export const GET_MESSAGES = "/messages";
-export const ADD_MESSAGE = "/api/interactions/6406f13bfcfd4f1f98e535c9";
-export const POST_FEEDBACK = "/api/interactions/feedback/64074cb6f060c6641819ed39/64077cc0e750fb53f022c58b"
+export const ADD_MESSAGE = "/api/interactions/postInteraction";
+export const POST_FEEDBACK = "/api/interactions/feedback"
 export const GET_INTERACTION = "/api/interactions/getinteraction"
 
 //ORDERS
