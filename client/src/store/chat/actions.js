@@ -23,9 +23,9 @@ import {
 } from "./actionTypes"
 
 
-export const getChats = messages  => ({
+export const getChats = messages => ({
   type: GET_CHATS,
-  messages,
+  payload: messages,
 })
 
 export const getChatsSuccess = messages => ({
@@ -89,7 +89,7 @@ export const addMessage = message => ({
 export const addMessageSuccess = message => ({
   type: POST_ADD_MESSAGE_SUCCESS,
   payload: message,
-  
+
 })
 
 export const addMessageFail = error => ({
@@ -105,7 +105,7 @@ export const AddFeedback = message => ({
 export const addFeebackSucess = message => ({
   type: POST_FEEDBACK_SUCCESS,
   payload: message,
-  
+
 })
 
 export const addFeebackFail = error => ({
@@ -123,7 +123,7 @@ export const getInteraction = message => ({
 export const getInteractionSucess = message => ({
   type: GET_INTERACTION_SUCCESS,
   payload: message,
-  
+
 })
 
 export const getInteractionFail = error => ({

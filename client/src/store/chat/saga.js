@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from "redux-saga/effects";
+import { takeEvery, put, call, takeLatest } from "redux-saga/effects";
 
 // Chat Redux States
 import {
@@ -38,13 +38,11 @@ import {
   addMessage,
 } from "../../helpers/fakebackend_helper";
 
-function* onGetChats({message}) {
+function* onGetChats(action) {
   try {
-    const response = yield call(getChats, message);
-    console.log(response)
+    const response = yield call(getChats, action.payload);
     yield put(getChatsSuccess(response));
   } catch (error) {
-    console.log(error)
     yield put(getChatsFail(error));
   }
 }
@@ -104,13 +102,13 @@ function* ongetInteraction({ message }) {
 }
 
 function* chatSaga() {
-  yield takeEvery(GET_CHATS, onGetChats);
+  yield takeLatest(GET_CHATS, onGetChats);
   yield takeEvery(GET_GROUPS, onGetGroups);
   yield takeEvery(GET_CONTACTS, onGetContacts);
   yield takeEvery(GET_MESSAGES, onGetMessages);
-  yield takeEvery(POST_FEEDBACK,onAddFeedback)
+  yield takeEvery(POST_FEEDBACK, onAddFeedback)
   yield takeEvery(POST_ADD_MESSAGE, onAddMessage);
-  yield takeEvery(GET_INTERACTION,ongetInteraction)
+  yield takeEvery(GET_INTERACTION, ongetInteraction)
 }
 
 export default chatSaga;

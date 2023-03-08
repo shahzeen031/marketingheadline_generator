@@ -7,7 +7,7 @@ import {
   Card,
   Col,
   Container,
-  Dropdown, 
+  Dropdown,
   DropdownMenu,
   DropdownToggle,
   Form,
@@ -42,18 +42,17 @@ const Chat = props => {
 
   const dispatch = useDispatch();
 
-  const { chats, messages, response,userID } = useSelector(state => ({
+  const { chats, messages, response, userID } = useSelector(state => ({
     chats: state.chat.chats,
     messages: state.chat.messages,
     response: state.chat.response,
     userID: state.Login.userID
   }));
-console.log(userID)
   const [messageBox, setMessageBox] = useState(null);
   // const Chat_Box_query2 = "Henry Wells"
   const [Currentresponse, setCurrentresponse] = useState(response);
   // eslint-disable-next-line no-unused-vars
-  
+
   const [feedback_dislike, setfeedback_dislike] = useState(false);
   const [feedback_like, setfeedback_like] = useState(false);
   const [feedback, setfeedback] = useState("");;
@@ -64,19 +63,18 @@ console.log(userID)
   const [query_ID, setqueryID] = useState("");
 
   useEffect(() => {
-   
-     if (!isEmpty(userID)) 
-     {
+
+    if (!isEmpty(userID)) {
       const message = {
-      
-        userID:userID
-         
-       };
-      dispatch(ongetInteraction(message))
-    
+
+        userId: userID
+
+      };
+      dispatch(getChats(message))
+
     };
   }, [getChats])
-   
+
 
 
   useEffect(() => {
@@ -86,14 +84,14 @@ console.log(userID)
 
 
   const toggle_like_feedback = () => {
-    if(query_response){
-    setfeedback_like(!feedback_like);
+    if (query_response) {
+      setfeedback_like(!feedback_like);
     }
   };
 
   const toggle_dislike_feedback = () => {
-    if(query_response){
-    setfeedback_dislike(!feedback_dislike);
+    if (query_response) {
+      setfeedback_dislike(!feedback_dislike);
     }
   };
 
@@ -104,36 +102,36 @@ console.log(userID)
     setCurrentresponse(response);
     setqueryresponse(true)
     setqueryID(_id)
-    
-    
+
+
   };
-  
- 
 
 
-  const addMessage = async() => {
+
+
+  const addMessage = async () => {
 
     const message = {
-      
+
       query: query,
-      
+
     };
 
     setChat_Box_query(query)
-   
+
     dispatch(onAddMessage(message));
-    
-    
+
+
   };
 
-  const addfeedback = async(value) => {
-    const message = { 
+  const addfeedback = async (value) => {
+    const message = {
       value: value,
       text: feedback,
       I_id: query_ID
     };
     dispatch(onAddfeedback(message));
-    
+
   };
 
   const scrollToBottom = () => {
@@ -156,48 +154,48 @@ console.log(userID)
                 <div className="chat-leftsidebar me-lg-1">
                   <div>
                     <div className="chat-leftsidebar-nav">
-                          <div>
-                            <h5 className="font-size-14 mb-4">{userID}Recent</h5>
-                            <ul className="list-unstyled chat-list" id="recent-list">
-                              <PerfectScrollbar style={{ height: "410px" }}>
-                              
-                                {map(chats, chat => (
-                                  <li
-                                    key={chat._id} >
-                                    <Link
-                                      to="#"
-                                      onClick={() => {
-                                        userChatOpen(
-                                          chat._id,
-                                          chat.query,
-                                          chat.response,
-                                        
-                                        );
-                                      }}
-                                    >
-                                      <div className="d-flex">
-                                       
-                                   
-                                          <div className="align-self-center me-3">
-                                             <i className="bx bx-chat font-size-20" />
-                                          </div>
-                                        
+                      <div>
+                        <h5 className="font-size-14 mb-4">{userID}Recent</h5>
+                        <ul className="list-unstyled chat-list" id="recent-list">
+                          <PerfectScrollbar style={{ height: "410px" }}>
 
-                                        <div className="flex-grow-1 overflow-hidden">
-                                          <h5 className="text-truncate font-size-14 mb-1">
-                                            {chat.query}
-                                          </h5>
-                                          <p className="text-truncate mb-0">
-                                            {chat.response}
-                                          </p>
-                                        </div>                                      
-                                     </div>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </PerfectScrollbar>
-                            </ul>
-                          </div>
+                            {map(chats, chat => (
+                              <li
+                                key={chat._id} >
+                                <Link
+                                  to="#"
+                                  onClick={() => {
+                                    userChatOpen(
+                                      chat._id,
+                                      chat.query,
+                                      chat.response,
+
+                                    );
+                                  }}
+                                >
+                                  <div className="d-flex">
+
+
+                                    <div className="align-self-center me-3">
+                                      <i className="bx bx-chat font-size-20" />
+                                    </div>
+
+
+                                    <div className="flex-grow-1 overflow-hidden">
+                                      <h5 className="text-truncate font-size-14 mb-1">
+                                        {chat.query}
+                                      </h5>
+                                      <p className="text-truncate mb-0">
+                                        {chat.response}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </Link>
+                              </li>
+                            ))}
+                          </PerfectScrollbar>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -207,18 +205,18 @@ console.log(userID)
                       <Row>
                         <Col md="4" xs="9">
                           <h5 className="font-size-15 mb-1">
-                          Get Your Business Noticed!
+                            Get Your Business Noticed!
                           </h5>
 
                           <p className="text-muted mb-0">
-                           with Our amazing marketing headlines generator model 
+                            with Our amazing marketing headlines generator model
                           </p>
                         </Col>
                         <Col md="8" xs="3">
                           <ul className="list-inline user-chat-nav text-end mb-0">
                             <li className="list-inline-item d-none d-sm-inline-block">
                               <Dropdown
-                             className="me-1"
+                                className="me-1"
                                 isOpen={feedback_like}
                                 toggle={toggle_like_feedback}
                               >
@@ -231,7 +229,7 @@ console.log(userID)
                                   <Form className="p-3" >
                                     <FormGroup className="m-0">
                                       <InputGroup>
-                                      
+
                                         <Input
                                           type="textarea"
                                           className="form-control"
@@ -242,7 +240,7 @@ console.log(userID)
                                           placeholder="Send your feedback"
                                         />
                                         {/* <InputGroupAddon addonType="append"> */}
-                                        <Button color="primary"  onClick={(e)=> addfeedback("like")}>
+                                        <Button color="primary" onClick={(e) => addfeedback("like")}>
                                           <i className="mdi mdi-send" />
                                         </Button>
                                         {/* </InputGroupAddon> */}
@@ -254,7 +252,7 @@ console.log(userID)
                             </li>
                             <li className="list-inline-item d-none d-sm-inline-block">
                               <Dropdown
-                             className="me-1"
+                                className="me-1"
                                 isOpen={feedback_dislike}
                                 toggle={toggle_dislike_feedback}
                               >
@@ -267,7 +265,7 @@ console.log(userID)
                                   <Form className="p-3" >
                                     <FormGroup className="m-0">
                                       <InputGroup>
-                                      
+
                                         <Input
                                           type="textarea"
                                           className="form-control"
@@ -278,7 +276,7 @@ console.log(userID)
                                           placeholder="Send your feedback"
                                         />
                                         {/* <InputGroupAddon addonType="append"> */}
-                                        <Button color="primary" onClick={(e)=> addfeedback("dislike")}>
+                                        <Button color="primary" onClick={(e) => addfeedback("dislike")}>
                                           <i className="mdi mdi-send" />
                                         </Button>
                                         {/* </InputGroupAddon> */}
@@ -296,30 +294,30 @@ console.log(userID)
                     <div>
                       <div className="chat-conversation p-3">
                         <ul className="list-unstyled">
-                        <li  className= "left">
-                                  <div className="conversation-list">
-                                    <div className="ctext-wrap">
-                                      <div className="conversation-name">
-                                        Query
-                                      </div>
-                                      <p>{Chat_Box_query}</p>
-                                      
-                                    </div>
-                                  </div>
-                                </li>
+                          <li className="left">
+                            <div className="conversation-list">
+                              <div className="ctext-wrap">
+                                <div className="conversation-name">
+                                  Query
+                                </div>
+                                <p>{Chat_Box_query}</p>
 
-                                <li className= "left">
-                                  <div className="conversation-list">
-                               
-                                    <div className="ctext-wrap">
-                                      <div className="conversation-name">
-                                        Response
-                                      </div>
-                                      <p>{Currentresponse}</p>
-                                      
-                                    </div>
-                                  </div>
-                                </li>
+                              </div>
+                            </div>
+                          </li>
+
+                          <li className="left">
+                            <div className="conversation-list">
+
+                              <div className="ctext-wrap">
+                                <div className="conversation-name">
+                                  Response
+                                </div>
+                                <p>{Currentresponse}</p>
+
+                              </div>
+                            </div>
+                          </li>
                         </ul>
                       </div>
                       <div className="p-3 chat-input-section">
@@ -333,7 +331,7 @@ console.log(userID)
                                 className="form-control chat-input"
                                 placeholder="Enter Message..."
                               />
-                            
+
                             </div>
                           </Col>
                           <Col className="col-auto">

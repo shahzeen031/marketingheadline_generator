@@ -14,7 +14,7 @@ export const loginUser = async (user, history) => {
     const res = await axios.post('http://localhost:5000/api/auth', user);
 
     if (res.data && res.data.response) {
-      localStorage.setItem("token", res.data.response);
+      localStorage.setItem("token", JSON.stringify(res.data.response));
       return {
         type: LOGIN_SUCCESS,
         payload: res.data.response,

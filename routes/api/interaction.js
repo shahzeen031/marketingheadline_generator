@@ -10,10 +10,10 @@ const { check, validationResult } = require('express-validator');
 const runCompletion = require('../../chatgpt')
 
 // Define a route for users to view their interaction history
-router.post('/getinteraction',auth, async (req, res) => {
+router.post('/getinteraction', auth, async (req, res) => {
   try {
     // Query the database for user interaction history data
- 
+
     const interaction = await Interaction.findOne({ userId: req.body.userId });
 
     if (!interaction) {
@@ -34,7 +34,7 @@ router.post('/postInteraction/:userId', async (req, res) => {
     // Find the interaction for the specified user
     let interaction = await Interaction.findOne({ userId: req.params.userId });
 
-  
+
     // If no interaction exists, create a new one
     if (!interaction) {
       interaction = new Interaction({
@@ -43,8 +43,8 @@ router.post('/postInteraction/:userId', async (req, res) => {
       });
     }
     // get response from fine tuned model
-    let query=req.body.query.concat(":###");
-    let response= await runCompletion(query)
+    let query = req.body.query.concat(":###");
+    let response = await runCompletion(query)
     // Add the new interaction to the array
 
     interaction.interactions.unshift({
@@ -71,18 +71,18 @@ router.post('/feedback/:userId/:interid', async (req, res) => {
     // Find the interaction for the specified user
     // let interaction = await Interaction.findOne({ userId: req.params.userId });
 
-  
-
-      const feedback = { value: 'good', text: 'Great!' };
-      const result = await Interaction.updateOne(
-        { userId: req.params.userId, 'interactions._id': req.params.interid },
-        { $push: { 'interactions.$.feedback': feedback } }
-      ).exec();
-    
-    
 
 
- 
+    const feedback = { value: 'good', text: 'Great!' };
+    const result = await Interaction.updateOne(
+      { userId: req.params.userId, 'interactions._id': req.params.interid },
+      { $push: { 'interactions.$.feedback': feedback } }
+    ).exec();
+
+
+
+
+
 
     // Return the updated interaction as a response to the client
     res.json(result);

@@ -120,7 +120,7 @@ export const deleteEvent = event =>
 export const getCategories = () => get(url.GET_CATEGORIES);
 
 // // get chats
- export const getChats = () => post(url.GET_CHATS,message);
+export const getChats = (message) => post(url.GET_CHATS, message, { headers: { 'x-auth-token': JSON.parse(localStorage.getItem('token')).token } });
 
 // get groups
 export const getGroups = () => get(url.GET_GROUPS);
