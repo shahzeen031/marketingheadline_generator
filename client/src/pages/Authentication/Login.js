@@ -6,31 +6,23 @@ import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link,Redirect } from "react-router-dom";
 
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-//Social Media Imports
-import { GoogleLogin } from "react-google-login";
-// import TwitterLogin from "react-twitter-auth"
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-
 // actions
-import { loginUser, socialLogin } from "../../store/actions";
+import { loginUser} from "../../store/actions";
 
 // import images
 import profile from "assets/images/profile-img.png";
-import logo from "assets/images/logo.svg";
 
-//Import config
-import { facebook, google } from "../../config";
 
 const Login = props => {
 
   //meta title
-  document.title = "Login | Skote - React Admin & Dashboard Template";
+  document.title = "Login";
 
   const dispatch = useDispatch();
 
@@ -39,8 +31,8 @@ const Login = props => {
     enableReinitialize: true,
 
     initialValues: {
-      email: "admin@themesbrand.com" || '',
-      password: "123456" || '',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
@@ -48,47 +40,25 @@ const Login = props => {
     }),
     onSubmit: async (values) => {
       dispatch(await loginUser(values, props.history));
-      if (!error) window.location = '/dashboard';
-    }
+    } 
+     
   });
 
-  const { error } = useSelector(state => ({
+  const { error,isAuthenticated } = useSelector(state => ({
     error: state.Login.error,
+    isAuthenticated: state.Login.isAuthenticated,
+   
   }));
 
-  const signIn = (res, type) => {
-    if (type === "google" && res) {
-      const postData = {
-        name: res.profileObj.name,
-        email: res.profileObj.email,
-        token: res.tokenObj.access_token,
-        idToken: res.tokenId,
-      };
-      dispatch(socialLogin(postData, props.history, type));
-    } else if (type === "facebook" && res) {
-      const postData = {
-        name: res.name,
-        email: res.email,
-        token: res.accessToken,
-        idToken: res.tokenId,
-      };
-      dispatch(socialLogin(postData, props.history, type));
-    }
-  };
+  if (isAuthenticated) {
+  
+    return <Redirect to={`/dashboard`}/>
+}
 
-  //handleGoogleLoginResponse
-  const googleResponse = response => {
-    signIn(response, "google");
-  };
 
-  //handleTwitterLoginResponse
-  // const twitterResponse = e => {}
 
-  //handleFacebookLoginResponse
-  const facebookResponse = response => {
-    signIn(response, "facebook");
-  };
 
+  
   return (
     <React.Fragment>
       <div className="home-btn d-none d-sm-block">
@@ -164,19 +134,7 @@ const Login = props => {
                         ) : null}
                       </div>
 
-                      <div className="form-check">
-                        <input
-                          type="checkbox"
-                          className="form-check-input"
-                          id="customControlInline"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="customControlInline"
-                        >
-                          Remember me
-                        </label>
-                      </div>
+                     
 
                       <div className="mt-3 d-grid">
                         <button

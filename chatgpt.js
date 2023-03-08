@@ -1,21 +1,25 @@
 const { Configuration, OpenAIApi } = require("openai");
+
 const configuration = new Configuration({
   apiKey: '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',
 });
 const openai = new OpenAIApi(configuration);
 
-async function runCompletion () {
+async function runCompletion (promt) {
     const completion = await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: "tell me story",
-    temperature: 0.6,
-    max_tokens: 1000,
+        model: "davinci:ft-personal:marketing-headlines-model-2023-03-07-11-32-07",
+        prompt: promt,
+        temperature: 0.7,
+        max_tokens: 256,
+        top_p: 1,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        stop: ["END"],
     });
-    console.log(completion.data.choices);
+    
+   return completion.data.choices[0].text;
 }
 
-
-
-
-
-runCompletion();
+//usage
+//runCompletion("new dinner decor ideas:###");
+module.exports = runCompletion;

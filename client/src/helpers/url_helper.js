@@ -44,11 +44,13 @@ export const DELETE_EVENT = "/delete/event";
 export const GET_CATEGORIES = "/categories";
 
 //CHATS
-export const GET_CHATS = "/chats";
+export const GET_CHATS = "/api/interactions";
 export const GET_GROUPS = "/groups";
 export const GET_CONTACTS = "/contacts";
 export const GET_MESSAGES = "/messages";
-export const ADD_MESSAGE = "/add/messages";
+export const ADD_MESSAGE = "/api/interactions/6406f13bfcfd4f1f98e535c9";
+export const POST_FEEDBACK = "/api/interactions/feedback/64074cb6f060c6641819ed39/64077cc0e750fb53f022c58b"
+export const GET_INTERACTION="/api/interactions/getinteraction"
 
 //ORDERS
 export const GET_ORDERS = "/orders";
@@ -105,7 +107,7 @@ export const DELETE_USER = "/delete/user";
 
 //dashboard charts data
 export const GET_WEEKLY_DATA = "/weekly-data";
-export const GET_YEARLY_DATA = "/yearly-data";
+export const GET_YEARLY_DATA = "/"
 export const GET_MONTHLY_DATA = "/monthly-data";
 
 export const TOP_SELLING_DATA = "/top-selling-data";

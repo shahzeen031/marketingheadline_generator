@@ -13,11 +13,11 @@ export const loginUser = async (user, history) => {
   try {
     const res = await axios.post('http://localhost:5000/api/auth', user);
 
-    if (res.data && res.data.token) {
-      localStorage.setItem("token", res.data.token);
+    if (res.data && res.data.response) {
+      localStorage.setItem("token", res.data.response);
       return {
         type: LOGIN_SUCCESS,
-        payload: {},
+        payload: res.data.response,
       };
     }
 

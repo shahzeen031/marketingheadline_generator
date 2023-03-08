@@ -3,17 +3,13 @@ const connectDB = require('./config/db');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const formidableMiddleware = require('express-formidable');
-const AdminBro = require('admin-bro');
-const AdminBroExpressjs = require('admin-bro-expressjs');
 const path = require('path');
-const expressValidator = require('express-validator');
-const fineTuneModel=require('./chatgpt')
+
 //app.set('view engine', ejs);
 
 //connect Database
 connectDB();
-fineTuneModel()
+
 //Middleware
 
 
@@ -28,7 +24,7 @@ app.use(bodyParser.json());
 //Define Routes
 app.use('/api/user', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
-// app.use('/api/upload', require('./routes/api/upload'));
+app.use('/api/interactions', require('./routes/api/interaction'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

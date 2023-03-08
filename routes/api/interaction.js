@@ -2,18 +2,19 @@ let express = require('express'),
   multer = require('multer'),
   uuidv4 = require('uuid/v4'),
   router = express.Router();
-let Interaction = require('../../models/Uploads');
+let Interaction = require('../../models/interaction');
 const auth = require('../../middleware/auth');
 let path = require('path');
 const Users = require('../../models/Users');
 const { check, validationResult } = require('express-validator');
-
+const runCompletion = require('../../chatgpt')
 
 // Define a route for users to view their interaction history
-app.get('/interactions/:userId', async (req, res) => {
+router.post('/getinteraction',auth, async (req, res) => {
   try {
     // Query the database for user interaction history data
-    const interaction = await Interaction.findOne({ userId: req.params.userId });
+ 
+    const interaction = await Interaction.findOne({ userId: req.body.userId });
 
     if (!interaction) {
       return res.status(404).json({ message: 'Interaction not found' });
@@ -28,11 +29,12 @@ app.get('/interactions/:userId', async (req, res) => {
 });
 
 // Define a route for users to add a new interaction
-app.post('/interactions/:userId', async (req, res) => {
+router.post('/postInteraction/:userId', async (req, res) => {
   try {
     // Find the interaction for the specified user
     let interaction = await Interaction.findOne({ userId: req.params.userId });
 
+  
     // If no interaction exists, create a new one
     if (!interaction) {
       interaction = new Interaction({
@@ -40,12 +42,15 @@ app.post('/interactions/:userId', async (req, res) => {
         interactions: [],
       });
     }
-
+    // get response from fine tuned model
+    let query=req.body.query.concat(":###");
+    let response= await runCompletion(query)
     // Add the new interaction to the array
-    interaction.interactions.push({
+
+    interaction.interactions.unshift({
       timestamp: new Date(),
       query: req.body.query,
-      response: req.body.response,
+      response: response,
     });
 
     // Save the updated interaction to the database
@@ -53,6 +58,34 @@ app.post('/interactions/:userId', async (req, res) => {
 
     // Return the updated interaction as a response to the client
     res.json(interaction.interactions);
+  } catch (err) {
+    // Handle any errors that occur during the request
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+// post feedback on the fine tune model response 
+router.post('/feedback/:userId/:interid', async (req, res) => {
+  try {
+    // Find the interaction for the specified user
+    // let interaction = await Interaction.findOne({ userId: req.params.userId });
+
+  
+
+      const feedback = { value: 'good', text: 'Great!' };
+      const result = await Interaction.updateOne(
+        { userId: req.params.userId, 'interactions._id': req.params.interid },
+        { $push: { 'interactions.$.feedback': feedback } }
+      ).exec();
+    
+    
+
+
+ 
+
+    // Return the updated interaction as a response to the client
+    res.json(result);
   } catch (err) {
     // Handle any errors that occur during the request
     res.status(500).json({ message: err.message });

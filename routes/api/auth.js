@@ -60,7 +60,9 @@ router.post('/',
       };
       jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '1h' }, (err, token) => {
         if (err) res.status(500).json({ errors: [{ message: err.message }] });
-        res.json({ token });
+        let response={userId: user.id,
+        token: token}
+        res.json({ response });
       });
     } catch (err) {
       res.status(500).json({ errors: [{ message: err.message }] });

@@ -19,10 +19,10 @@ import "./assets/scss/theme.scss";
 
 
 
-import fakeBackend from "./helpers/AuthType/fakeBackend"
+// import fakeBackend from "./helpers/AuthType/fakeBackend"
 
 
-fakeBackend()
+// fakeBackend()
 
 
 

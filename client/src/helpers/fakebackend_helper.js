@@ -119,8 +119,8 @@ export const deleteEvent = event =>
 // get Categories
 export const getCategories = () => get(url.GET_CATEGORIES);
 
-// get chats
-export const getChats = () => get(url.GET_CHATS);
+// // get chats
+ export const getChats = () => post(url.GET_CHATS,message);
 
 // get groups
 export const getGroups = () => get(url.GET_GROUPS);

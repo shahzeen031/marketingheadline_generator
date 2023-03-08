@@ -14,15 +14,23 @@ import {
   POST_ADD_MESSAGE,
   POST_ADD_MESSAGE_FAIL,
   POST_ADD_MESSAGE_SUCCESS,
+  POST_FEEDBACK,
+  POST_FEEDBACK_FAIL,
+  POST_FEEDBACK_SUCCESS,
+  GET_INTERACTION,
+  GET_INTERACTION_SUCCESS,
+  GET_INTERACTION_FAIL
 } from "./actionTypes"
 
-export const getChats = () => ({
+
+export const getChats = messages  => ({
   type: GET_CHATS,
+  messages,
 })
 
-export const getChatsSuccess = chats => ({
+export const getChatsSuccess = messages => ({
   type: GET_CHATS_SUCCESS,
-  payload: chats,
+  payload: messages,
 })
 
 export const getChatsFail = error => ({
@@ -81,9 +89,44 @@ export const addMessage = message => ({
 export const addMessageSuccess = message => ({
   type: POST_ADD_MESSAGE_SUCCESS,
   payload: message,
+  
 })
 
 export const addMessageFail = error => ({
   type: POST_ADD_MESSAGE_FAIL,
+  payload: error,
+})
+
+export const AddFeedback = message => ({
+  type: POST_FEEDBACK,
+  message,
+})
+
+export const addFeebackSucess = message => ({
+  type: POST_FEEDBACK_SUCCESS,
+  payload: message,
+  
+})
+
+export const addFeebackFail = error => ({
+  type: POST_FEEDBACK_FAIL,
+  payload: error,
+})
+
+
+
+export const getInteraction = message => ({
+  type: GET_INTERACTION,
+  message,
+})
+
+export const getInteractionSucess = message => ({
+  type: GET_INTERACTION_SUCCESS,
+  payload: message,
+  
+})
+
+export const getInteractionFail = error => ({
+  type: GET_INTERACTION_FAIL,
   payload: error,
 })

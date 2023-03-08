@@ -22,19 +22,19 @@ const Sidebar = props => {
         <div className="navbar-brand-box">
           <Link to="/" className="logo logo-dark">
             <span className="logo-sm">
-              <img src={logo} alt="" height="22" />
+            <h4 className="text-black fw-semibold hero-title mt-3">ChatGPT</h4>
             </span>
             <span className="logo-lg">
-              <img src={logoDark} alt="" height="17" />
+            <h4 className="text-white fw-semibold hero-title mt-3">ChatGPT</h4>
             </span>
           </Link>
 
           <Link to="/" className="logo logo-light">
             <span className="logo-sm">
-              <img src={logoLightSvg} alt="" height="22" />
+            <h4 className="text-white fw-semibold hero-title mt-3">ChatGPT</h4>
             </span>
             <span className="logo-lg">
-              <img src={logoLightPng} alt="" height="19" />
+            <h4 className="text-white fw-semibold hero-title mt-3">ChatGPT</h4>
             </span>
           </Link>
         </div>

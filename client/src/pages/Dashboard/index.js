@@ -37,7 +37,8 @@ const Dashboard = props => {
   const [subscribemodal, setSubscribemodal] = useState(false);
 
   const { chartsData } = useSelector(state => ({
-    chartsData: state.Dashboard.chartsData
+    chartsData: state.Dashboard.chartsData,
+    
   }));
 
   const reports = [

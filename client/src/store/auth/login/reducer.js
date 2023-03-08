@@ -9,6 +9,9 @@ import {
 const initialState = {
   error: "",
   loading: false,
+  isAuthenticated:false,
+  userID: "",
+  token: "",
 }
 
 const login = (state = initialState, action) => {
@@ -24,6 +27,9 @@ const login = (state = initialState, action) => {
         ...state,
         error: "",
         loading: false,
+        token: action.payload.token,
+        userID: action.payload.userId,
+        isAuthenticated:true,
       }
       break
     case LOGOUT_USER:
